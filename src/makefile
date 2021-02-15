@@ -1,7 +1,8 @@
 CFLAGS = -Wall
 
-#TODO link (-o) all object files into the executable myexe
-all: fileio.o utils.o proj_refactor_file.o
+#target exe
+all: proj_refactor_file.o fileio.o utils.o 
+	g++ $(CFLAGS) -o myexe proj_refactor_file.o fileio.o utils.o 
 	
 	
 #rebuild object file if fileio.cpp, or fileio.h or constants.h changes
@@ -9,12 +10,11 @@ all: fileio.o utils.o proj_refactor_file.o
 fileio.o: ../fileio/fileio.cpp ../includes/fileio.h ../includes/constants.h
 	g++ $(CFLAGS) -c ../fileio/fileio.cpp
 	
-#TODO 
-utils.o: 
+utils.o: ../utils/utils.cpp ../includes/utils.h ../includes/constants.h
+	g++ $(CFLAGS) -c ../utils/utils.cpp
 	
-#TODO
 proj_refactor_file.o: proj_refactor_file.cpp	
-	
-
-#TODO type 'make clean' to remove myexe and all .o files	
+	g++ $(CFLAGS) -c proj_refactor_file.cpp
+		
 clean:
+	rm -f *.o myexe
